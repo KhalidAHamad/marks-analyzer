@@ -15,3 +15,13 @@ def get_grades(grades_file):
         grades.append(float(grade.strip()))
 
     return grades
+
+def generate_grade_ranges(grades):
+    """
+    FILL IT
+    """
+    ranges = [str(i) + '-' + str(i + 9) for i in range(10, 91, 10)]
+    ranges.insert(0, "0-9")
+    ranges.append("100")
+
+    return ranges
