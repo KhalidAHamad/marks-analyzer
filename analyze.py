@@ -16,7 +16,7 @@ def get_grades(grades_file):
 
     return grades
 
-def generate_grade_ranges(grades):
+def get_grade_ranges():
     """
     FILL IT
     """
@@ -25,3 +25,19 @@ def generate_grade_ranges(grades):
     ranges.append("100")
 
     return ranges
+
+
+def get_grades_frequency(grades):
+    """
+
+    """
+
+    freq = [0] * 11
+
+    for grade in grades:
+        grade = int(grade // 10)
+        freq[grade] += 1
+
+    return freq
+
+
