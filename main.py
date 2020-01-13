@@ -1,4 +1,5 @@
 import analyze
+import numpy as np
 
 grades_file = open("test_files/grades_small.csv", "r")
 
