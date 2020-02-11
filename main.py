@@ -8,18 +8,27 @@ Preconditions:
 
 import analyze
 import pandas as pd
-import matplotlib.pyplot as plt
+import tkinter as tk
+import os
 
 
 # Handles wheather the file is xlsx or csv file
-file_name = "test_files/grades_small.csv"
-file_extension = file_name.split('.')[-1]
+grades_file = tk.filedialog.askopenfilename(
+        title="Select file", filetypes=(
+            ("excel spreadsheets","*.xlsx"),
+            ("comma seperated files", "*.csv"),
+            ("all files","*.*"),
+        )
+    )
+
+# file_name = "test_files/grades_small.csv"
+file_extension = grades_file.split('.')[-1]
 print(file_extension)
 
 if file_extension == "xlsx":
-    grades = pd.read_excel(file_name)
+    grades = pd.read_excel(grades_file)
 elif file_extension == "csv":
-    grades = pd.read_csv(file_name)
+    grades = pd.read_csv(grades_file)
 else:
     print("Unsupported file type. Aborting!")
     exit()
