@@ -38,28 +38,26 @@ def get_grade_max(data_set):
     """
 
     max_grade = data_set["grade"].max(axis=0)
-    print(max_grade)
     studnts_max_grade = data_set[data_set["grade"] == max_grade]
     studnts_max_grade = studnts_max_grade["matric number"].to_list()
 
     return studnts_max_grade, max_grade
 
 
-def write_report(avg_grade, median_grade, max_grade, students_max_grade):
+def generate_report(avg_grade, median_grade, max_grade, students_max_grade):
 
-    print(
-f"""avg mark is {avg_grade},
+    report = f"""\navg mark is {avg_grade},
 Grades has a median of {median_grade},
 heighest mark is {max_grade}, scored by:
 {', '.join(students_max_grade)}."""
-)
+
+    return report
 
 
 def plot_hist(bins, grade_count, mean_grade):
 
     plt.style.use("seaborn")
     fig, ax = plt.subplots()
-    # plt.barh(bins, grade_count)
     ax.barh(bins, grade_count)
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     plt.show()

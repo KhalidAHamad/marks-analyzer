@@ -9,42 +9,94 @@ Preconditions:
 import analyze
 import pandas as pd
 import tkinter as tk
-import os
-
-
-# Handles wheather the file is xlsx or csv file
-grades_file = tk.filedialog.askopenfilename(
-        title="Select file", filetypes=(
-            ("excel spreadsheets","*.xlsx"),
-            ("comma seperated files", "*.csv"),
-            ("all files","*.*"),
-        )
-    )
 
 # file_name = "test_files/grades_small.csv"
-file_extension = grades_file.split('.')[-1]
-print(file_extension)
+# print(file_extension)
 
-if file_extension == "xlsx":
-    grades = pd.read_excel(grades_file)
-elif file_extension == "csv":
-    grades = pd.read_csv(grades_file)
-else:
-    print("Unsupported file type. Aborting!")
-    exit()
+def main():
+    intro()
+    input()
+
+    # Get file name
+    grades_file = tk.filedialog.askopenfilename(
+            title="Select file", filetypes=(
+                ("excel spreadsheets","*.xlsx"),
+                ("comma seperated files", "*.csv"),
+                ("all files","*.*"),
+            )
+        )
+
+    file_extension = grades_file.split('.')[-1]
+
+    if file_extension == "xlsx":
+        grades = pd.read_excel(grades_file)
+    elif file_extension == "csv":
+        grades = pd.read_csv(grades_file)
+    else:
+        print("Unsupported file type. Aborting!")
+        exit()
+
+    # cleaning up the column names
+    grades.columns = (
+                    grades.columns.str.strip()
+                    .str.lower()
+                    .str.replace("  ", " ")
+                )
 
 
-grades.columns = grades.columns.str.strip().str.lower().str.replace("  ", " ")
+    students_with_max_grade, max_grade = analyze.get_grade_max(grades)
+    avg_grade = grades["grade"].mean(axis=0)
+    median_grade = grades["grade"].median(axis=0)
 
 
-students_max_grade, max_grade = analyze.get_grade_max(grades)
-avg_grade = grades["grade"].mean(axis=0)
-median_grade = grades["grade"].median(axis=0)
+    analysis_result = analyze.generate_report(avg_grade, median_grade,
+                         max_grade, students_with_max_grade)
+    print(analysis_result)
 
-analyze.write_report(avg_grade, median_grade, max_grade, students_max_grade)
+    print("\n\n** Display a histogram of the grades distribution? [yes/no]")
+    if get_choice():
+        grade_count = analyze.get_frequency(grades)
+        grade_ranges = analyze.get_grade_ranges()
+        analyze.plot_hist(grade_ranges, grade_count, avg_grade)
 
-grade_count = analyze.get_frequency(grades)
-grade_ranges = analyze.get_grade_ranges()
+    print("\n\n** Save the analysis result to a text (.txt) file? [yes/no]")
+    if get_choice():
+        # TODO
+        report_file = tk.filedialog.asksaveasfilename(
+                confirmoverwrite=False,
+                defaultextension=".txt",
+                filetypes=(("text file", "*.txt"))
+            )
+        report = open(report_file, 'a')
+        report.write(analysis_result)
+        report.close()
 
-analyze.plot_hist(grade_ranges, grade_count, avg_grade)
 
+
+def intro():
+    print('\n' * 2, "*" * 29,
+        "Welcome to the grade analyzer",
+        "*" * 29, sep='\n')
+    print(
+        "\n\n   - This program only analyzes excel/csv files.\n"
+        "   - This program assumes that there is 2 columns with the following"
+        " names:\n"
+        "\tgrade\n"
+        "\tmatric number\n"
+        "\n\nPress ENTER to select your file"
+    )
+
+
+def get_choice():
+    while True:
+        choice = input("> ")
+        choice = choice.strip().lower()
+
+        if choice == 'y' or choice == 'yes':
+            return True
+        elif choice == 'n' or choice == 'no':
+            return False
+
+
+
+main()
