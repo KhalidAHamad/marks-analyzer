@@ -9,13 +9,15 @@ Preconditions:
 import analyze
 import pandas as pd
 import tkinter as tk
+import time
+import sys
 
 # file_name = "test_files/grades_small.csv"
 # print(file_extension)
 
 def main():
     intro()
-    input()
+    input() # Pause till the user press Enter.
 
     # Get file name
     grades_file = tk.filedialog.askopenfilename(
@@ -34,7 +36,7 @@ def main():
         grades = pd.read_csv(grades_file)
     else:
         print("Unsupported file type. Aborting!")
-        exit()
+        sys.exit()
 
     # cleaning up the column names
     grades.columns = (
@@ -51,7 +53,10 @@ def main():
 
     analysis_result = analyze.generate_report(avg_grade, median_grade,
                          max_grade, students_with_max_grade)
+    print('#' * 30)
     print(analysis_result)
+    print('#' * 30)
+    time.sleep(1)
 
     print("\n\n** Display a histogram of the grades distribution? [yes/no]")
     if get_choice():
@@ -61,15 +66,16 @@ def main():
 
     print("\n\n** Save the analysis result to a text (.txt) file? [yes/no]")
     if get_choice():
-        # TODO
         report_file = tk.filedialog.asksaveasfilename(
                 confirmoverwrite=False,
                 defaultextension=".txt",
-                filetypes=(("text file", "*.txt"))
+                filetypes=(("text file", "*.txt"), ("All Files", "*.*"))
             )
         report = open(report_file, 'a')
         report.write(analysis_result)
         report.close()
+        print("\n\nDONE!")
+
 
 
 
@@ -96,7 +102,6 @@ def get_choice():
             return True
         elif choice == 'n' or choice == 'no':
             return False
-
 
 
 main()

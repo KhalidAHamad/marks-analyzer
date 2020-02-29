@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+import sys
 
 
 
@@ -37,16 +38,23 @@ def get_grade_max(data_set):
 
     """
 
-    max_grade = data_set["grade"].max(axis=0)
-    studnts_max_grade = data_set[data_set["grade"] == max_grade]
-    studnts_max_grade = studnts_max_grade["matric number"].to_list()
+    try:
+        max_grade = data_set["grade"].max(axis=0)
+        studnts_max_grade = data_set[data_set["grade"] == max_grade]
+        studnts_max_grade = studnts_max_grade["matric number"].to_list()
+    except:
+        print("One of the column names is invalid!")
+        print("Make sure you have 2 columns with names:")
+        print("\tmatric number\n\tgrade")
+        print("Aborting!")
+        sys.exit()
 
     return studnts_max_grade, max_grade
 
 
 def generate_report(avg_grade, median_grade, max_grade, students_max_grade):
 
-    report = f"""\navg mark is {avg_grade},
+    report = f"""avg mark is {avg_grade},
 Grades has a median of {median_grade},
 heighest mark is {max_grade}, scored by:
 {', '.join(students_max_grade)}."""
@@ -60,4 +68,10 @@ def plot_hist(bins, grade_count, mean_grade):
     fig, ax = plt.subplots()
     ax.barh(bins, grade_count)
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_title("Grades Histogram")
+    ax.set_ylabel("Grade Ranges")
+    ax.set_xlabel("Number of Students")
+    print("** YOU HAVE TO CLOSE THE PLOT IN ORDER FOR THIS PROGRAM TO "
+          "CONTINUE EXECUTION! **")
     plt.show()
+
