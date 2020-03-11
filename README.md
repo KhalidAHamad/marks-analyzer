@@ -1,4 +1,4 @@
-## Introduction and motivation.
+## Introduction and motivation
 
 During the last 2 years in my university, I realized that some of my friends are struggeling everytime a lecturer gives us our marks 
 because my classmates will be going through large excel files just trying to 
