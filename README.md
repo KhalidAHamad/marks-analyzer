@@ -1,11 +1,13 @@
 ## Introduction and motivation.
-Through the last 2 years in my university, I realized that some of my friends are struggeling everytime a lecturer gives us our marks 
+
+During the last 2 years in my university, I realized that some of my friends are struggeling everytime a lecturer gives us our marks 
 because my classmates will be going through large excel files just trying to 
 compare their mark with the marks of
 other students. Thus, I made this program to automate the process for my
 classmates and my lecturers, as well.
 
 ## Getting started
+
 ### Preconditions
 This is a very basic app written in Python3.8 that is capable of analyzing 
 *csv*/*excel* files that obey the following conditions:
@@ -36,16 +38,20 @@ below in pictures) you will be given the option to save the report above,
 without the chart, to a text file.
 
 ### Illustrations
-*The program expects a file structure similar to this*
+
+##### The program expects a file structure similar to this
 <img src="images/works.png">
 ---
-*It will NOT work with the following structure, _column names are NOT in the first line_*
+
+##### It will NOT work with the following structure, _column names are NOT in the first line_
 <img src="images/doesnt-work.png">
 ---
-*After you select and open your file, close the Tkinter window (the window in the picture below)*
+
+##### After you select and open your file, close the Tkinter window (the window in the picture below)
 <img src="images/tk-window.png">
 ---
-*The histogram and the app running on the left side*
+
+##### The histogram and the app running on the left side
 <img src="images/hist.png">
 
 ## Connect with me
