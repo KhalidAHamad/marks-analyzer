@@ -3,7 +3,7 @@ Preconditions:
     - The file is an excel or csv file.
     - there are at least 2 columns with following names:
         matric number
-        grade
+        mark
 """
 
 import analyze
@@ -12,57 +12,58 @@ import tkinter as tk
 import time
 import sys
 
-# file_name = "test_files/grades_small.csv"
-# print(file_extension)
 
 def main():
     intro()
     input() # Pause till the user press Enter.
 
     # Get file name
-    grades_file = tk.filedialog.askopenfilename(
-            title="Select file", filetypes=(
+    marks_file = tk.filedialog.askopenfilename(
+            title="Select a csv/excel file", filetypes=(
+                ("all files","*.*"),
                 ("excel spreadsheets","*.xlsx"),
                 ("comma seperated files", "*.csv"),
-                ("all files","*.*"),
             )
         )
 
-    file_extension = grades_file.split('.')[-1]
+    file_extension = marks_file.split('.')[-1]
 
     if file_extension == "xlsx":
-        grades = pd.read_excel(grades_file)
+        marks = pd.read_excel(marks_file)
     elif file_extension == "csv":
-        grades = pd.read_csv(grades_file)
+        marks = pd.read_csv(marks_file)
     else:
         print("Unsupported file type. Aborting!")
         sys.exit()
 
     # cleaning up the column names
-    grades.columns = (
-                    grades.columns.str.strip()
+    marks.columns = (
+                    marks.columns.str.strip()
                     .str.lower()
                     .str.replace("  ", " ")
                 )
 
 
-    students_with_max_grade, max_grade = analyze.get_grade_max(grades)
-    avg_grade = grades["grade"].mean(axis=0)
-    median_grade = grades["grade"].median(axis=0)
+    # some statistics to be used in the report
+    students_with_max_mark, max_mark = analyze.get_mark_max(marks)
+    min_mark = marks["mark"].min(axis=0)
+    avg_mark = marks["mark"].mean(axis=0)
+    median_mark = marks["mark"].median(axis=0)
 
 
-    analysis_result = analyze.generate_report(avg_grade, median_grade,
-                         max_grade, students_with_max_grade)
+    analysis_result = analyze.generate_report(avg_mark, median_mark, min_mark,
+                         max_mark, students_with_max_mark)
     print('#' * 30)
+    print('\nAnalysis Report\n')
     print(analysis_result)
     print('#' * 30)
     time.sleep(1)
 
-    print("\n\n** Display a histogram of the grades distribution? [yes/no]")
+    print("\n\n** Display a histogram of the marks distribution? [yes/no]")
     if get_choice():
-        grade_count = analyze.get_frequency(grades)
-        grade_ranges = analyze.get_grade_ranges()
-        analyze.plot_hist(grade_ranges, grade_count, avg_grade)
+        mark_count = analyze.get_frequency(marks)
+        mark_ranges = analyze.get_mark_ranges()
+        analyze.plot_hist(mark_ranges, mark_count, avg_mark)
 
     print("\n\n** Save the analysis result to a text (.txt) file? [yes/no]")
     if get_choice():
@@ -77,23 +78,27 @@ def main():
         print("\n\nDONE!")
 
 
-
-
 def intro():
+    """
+    Displays a short intro and explanation of the app
+    """
     print('\n' * 2, "*" * 29,
-        "Welcome to the grade analyzer",
+        "Welcome to the marks analyzer",
         "*" * 29, sep='\n')
     print(
         "\n\n   - This program only analyzes excel/csv files.\n"
         "   - This program assumes that there is 2 columns with the following"
         " names:\n"
-        "\tgrade\n"
+        "\tmark\n"
         "\tmatric number\n"
         "\n\nPress ENTER to select your file"
     )
 
 
 def get_choice():
+    """
+    Returns the user choice (yes or no) after validating the input
+    """
     while True:
         choice = input("> ")
         choice = choice.strip().lower()
