@@ -30,19 +30,23 @@ The short report will contain the following information:
 - A list of students' matric numbers who scored the highest mark.
 
 After that, you will be given the option to see a histogram illustrating the
-marks distribution. Finally, after you close the chart and tKinter window (if 
+marks distribution. Finally, after you close the chart and Tkinter window (if 
 you do not know what I mean by the latter, do not worry, it is illustrated
 below in pictures) you will be given the option to save the report above,
 without the chart, to a text file.
 
 ### Illustrations
-The program expects a file structure similar to this
+*The program expects a file structure similar to this*
+<img src="images/works.png">
+---
+*It will NOT work with the following structure, _column names are NOT in the first line_*
+<img src="images/doesnt-work.png">
+---
+*After you select and open your file, close the Tkinter window (the window in the picture below)*
+<img src="images/tk-window.png">
+---
+*The histogram and the app running on the left side*
+<img src="images/hist.png">
 
-It will NOT work with the following structure, _column names are NOT in the first line_
-
-Pictures of the app after finishing
-
-After selecting your file close the tKinter window (the window in the picture
-below)
-
-## Follow me
+## Connect with me
+[LinkedIn](https://www.linkedin.com/in/khalidhamad/)
