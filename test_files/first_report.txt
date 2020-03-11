@@ -1,5 +1,0 @@
-
-avg mark is 23.946644801724958,
-Grades has a median of 23.84632034632035,
-heighest mark is 30.0, scored by:
-KIE180096, KIG170031.
