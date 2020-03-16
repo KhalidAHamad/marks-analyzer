@@ -1,6 +1,6 @@
 ## Introduction and motivation
 
-Since entering university, I have realized that some of my friends are struggling every time a lecturer puts out our marks because they go through large excel files just trying to compare their mark with the marks of other students. Thus, I made this program to ease the process for my classmates and automate the analysis for my lecturers, as well.
+Since entering university, I have noticed that some of my colleagues are struggling every time a lecturer puts out our marks because they have to go through large excel files just trying to compare their marks with the marks of other students. Thus, I made this program to ease the process for my classmates and automate the analysis for my lecturers as well.
 
 ## Getting started
 
@@ -30,12 +30,12 @@ The report will contain the following information:
 After that, you will be given the option to see a histogram illustrating the
 marks distribution. Finally, after you close the chart and Tkinter window (if 
 you do not know what I mean by the latter, do not worry, it is illustrated
-below in pictures) you will be given the option to save the report above,
-without the chart, to a text file.
+below in pictures) you will be given the option to save the report above
+without the chart to a text file.
 
 ## Illustrations
 
-##### The program expects a file structure similar to this
+##### The program is expected to be used with a file structure similar to this
 <img src="images/works.png">
 
 ---
