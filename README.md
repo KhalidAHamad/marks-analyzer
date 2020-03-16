@@ -50,7 +50,7 @@ without the chart to a text file.
 
 ---
 
-##### The histogram and the app running on the left side
+##### The histogram on the right side and the app running on the left side
 <img src="images/hist.png">
 
 ## Connect with me
